@@ -1,0 +1,27 @@
+syntax = "proto3";
+package faststore;
+option go_package = "./faststore";
+
+service FastStore {
+  rpc StoreChunk(StoreRequest) returns (StoreResponse);
+  rpc GetChunk(GetRequest) returns (GetResponse);
+}
+
+message StoreRequest {
+  string chunk_id = 1;
+  bytes data = 2;
+  repeated string nodes = 3;
+}
+
+message StoreResponse {
+  bool success = 1;
+}
+
+message GetRequest {
+  string chunk_id = 1;
+}
+
+message GetResponse {
+  bytes data = 1;
+  bool found = 2;
+}
